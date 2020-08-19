@@ -1,0 +1,40 @@
+---
+name: Compile and sign an C executable
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Compile
+        run: gcc -o ./hard_sums ./hard_sums.c
+
+      - name: Test
+        run: ./hard_sums
+
+      - name: Import macOS certificate
+        uses: apple-actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
+          p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
+
+      - name: Verify import
+        run: |
+          echo -- /usr/bin/security list-keychains --
+          /usr/bin/security list-keychains
+          echo -- security find-identity --
+          security find-identity
+
+      - name: Sign executable
+        run: |
+          codesign --force --timestamp --sign /Users/runner/Library/Keychains/signing_temp.keychain-db ./hard_sums
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Signed executable
+          path: ./hard_sums
