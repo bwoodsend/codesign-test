@@ -32,7 +32,7 @@ jobs:
 
       - name: Sign executable
         run: |
-          codesign -vvvv --force --timestamp --sign 7EF52D5FFCBEDB449C7F66F70094D81518261FD2 ./hard_sums
+          codesign -vvvv --force --timestamp --sign BrenainnWoodsend ./hard_sums
 
       - uses: actions/upload-artifact@v2
         with:
