@@ -5,6 +5,6 @@ int add_1(int x) {
 }
 
 int main() {
-  printf("1 + 1 = %i\n", add_1(1));
+  printf("2 + 1 = %i\n", add_1(2));
   return 0;
 }
