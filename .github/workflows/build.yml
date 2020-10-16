@@ -38,3 +38,13 @@ jobs:
         with:
           name: Signed executable
           path: ./hard_sums
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: "./hard_sums"
+          name: ${{ env.JOB_NAME }}
+          replacesArtifacts: true
+          tag: ${{ github.run_number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
