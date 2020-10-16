@@ -34,6 +34,11 @@ jobs:
         run: |
           codesign -vvvv --force --timestamp --sign BrenainnWoodsend ./hard_sums
 
+      - name: Verfiy signature
+        run: |
+          codesign -vv --deep-verify ./hard_sums
+          codesign -dvv ./hard_sums
+
       - uses: actions/upload-artifact@v2
         with:
           name: Signed executable
