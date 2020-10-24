@@ -27,6 +27,7 @@
 *.so
 *.so.*
 *.dylib
+*.pyd
 
 # Executables
 *.exe
@@ -53,3 +54,6 @@ dkms.conf
 
 # Certificates
 *.p12
+
+# PyCharm config
+.idea
