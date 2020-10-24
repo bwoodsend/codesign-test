@@ -1,0 +1,24 @@
+---
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  main:
+    runs-on: macos-latest
+    steps:
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+
+    - name: build
+      runs: python setup.py build
+
+    - name: test
+      runs: python -c "import fib; print(fib.fib(10))"
+
+    - uses: actions/upload-artifact@v2
+      with:
+        path: ./fib*
